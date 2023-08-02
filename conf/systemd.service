@@ -1,13 +1,14 @@
 [Unit]
-Description=Small description of the service
+Description=Portainer with Docker Compose
 After=network.target
 
 [Service]
-Type=simple
-User=__APP__
-Group=__APP__
-WorkingDirectory=__INSTALL_DIR__/
-ExecStart=__INSTALL_DIR__/script
+Type=oneshot
+RemainAfterExit=true
+WorkingDirectory=__DATA_DIR__/
+ExecStart=/usr/bin/docker compose up -d --remove-orphans
+ExecReload=/usr/bin/docker compose up -d --remove-orphans
+ExecStop=/usr/bin/docker compose down
 StandardOutput=append:/var/log/__APP__/__APP__.log
 StandardError=inherit
 

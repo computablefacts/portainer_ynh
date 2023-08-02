@@ -1,0 +1,14 @@
+version: "3"
+services:
+  portainer:
+    image: portainer/portainer-ce:2.18.1
+    ports:
+    - target: 9443
+      host_ip: 127.0.0.1
+      published: "__PORT__"
+      protocol: tcp
+      mode: host
+    volumes:
+    - ./data:/data
+    - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
