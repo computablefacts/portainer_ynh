@@ -5,13 +5,13 @@ name = "Portainer"
 description.en = "Deploy, configure, troubleshoot and secure containers in minutes on Docker"
 description.fr = "Déployez, configurez, dépannez et sécurisez les conteneurs en quelques minutes sur Docker"
 
-version = "2.18.1~ynh1"
+version = "2.18.1~ynh2"
 
 maintainers = ["pbrisacier@mncc.fr"]
 
 [upstream]
 # NB: Only the "license" key is mandatory. Remove entries for which there's no relevant data
-license = "zlib"
+license = "Zlib"
 website = "https://www.portainer.io/"
 demo = "https://demo.example.com"
 admindoc = "https://docs.portainer.io/v/2.18/admin/users"
