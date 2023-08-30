@@ -21,8 +21,8 @@ code = "https://github.com/portainer/portainer"
 yunohost = ">= 11.1.21"
 architectures = "all"
 multi_instance = false
-ldap = "false"
-sso = "false"
+ldap = false
+sso = false
 disk = "300M"
 ram.build = "50M"
 ram.runtime = "50M"
