@@ -48,6 +48,16 @@ ynh_remove_logrotate
 
 ynh_secure_remove --file="/var/log/$app"
 
+# Restore LDAP configuration
+# conf_regen hook will be deleted by YunoHost AFTER this remove script execution
+# So I detele it and regenerate conf files
+# NOTA: I try to generate only LDAP conf with "sudo yunohost tools regen-conf sladp" but, in this
+# case, the hooks are not called. Not a problem for this app but could be a problem if there are
+# hooks from others apps.
+ynh_script_progression --message="Restore LDAP configuration..." --weight=2
+sudo bash -c "rm /etc/yunohost/hooks.d/conf_regen/*portainer"
+yunohost tools regen-conf
+
 #=================================================
 # END OF SCRIPT
 #=================================================

@@ -154,6 +154,16 @@ ynh_add_config --template="docker-compose.yaml" --destination="$data_dir/docker-
 ### ynh_replace_string --match_string="match_string" --replace_string="replace_string" --target_file="$install_dir/some_config_file"
 ### ynh_store_file_checksum --file="$install_dir/some_config_file"
 
+# Change LDAP configuration to expose it on all IP (not just localhost)
+# conf_regen hook will be copied by YunoHost AFTER this install script execution
+# So I copy it, regenerate conf files and delete it
+# NOTA: I try to generate only LDAP conf with "sudo yunohost tools regen-conf sladp" but, in this
+# case, the hook is not called.
+ynh_script_progression --message="Change LDAP configuration..." --weight=2
+ynh_add_config --template="../hooks/conf_regen" --destination="/etc/yunohost/hooks.d/conf_regen/99-slapd-portainer"
+sudo yunohost tools regen-conf
+rm -f "/etc/yunohost/hooks.d/conf_regen/99-slapd-portainer"
+
 #=================================================
 # GENERIC FINALIZATION
 #=================================================
