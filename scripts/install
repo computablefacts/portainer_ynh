@@ -195,6 +195,12 @@ ynh_systemd_action --service_name=$app --action="start" --log_path="/var/log/$ap
 ynh_script_progression --message="Create administrator account..." --weight=1
 ynh_local_curl "/api/users/admin/init" "{\"Username\":\"$admin\",\"Password\":\"$password\"}"
 
+ynh_script_progression --message="Setup LDAP..." --weight=1
+auth_answer=$(ynh_local_curl_extended "/api/auth" "" "" "{\"Username\":\"$admin\",\"Password\":\"$password\"}")
+extracted_bearer=$(echo "${auth_answer}" | jq -r .jwt)
+
+settings_answer=$(ynh_local_curl_extended "/api/settings" "PUT" "$extracted_bearer" "{\"AuthenticationMethod\":2,\"LDAPSettings\":{\"AnonymousMode\":true,\"ReaderDN\":\"\",\"URLs\":[\"host.docker.internal:389\"],\"ServerType\":0,\"TLSConfig\":{\"TLS\":false,\"TLSSkipVerify\":false},\"StartTLS\":false,\"SearchSettings\":[{\"BaseDN\":\"ou=users,dc=yunohost,dc=org\",\"Filter\":\"\",\"UserNameAttribute\":\"uid\"}],\"GroupSearchSettings\":[{\"GroupBaseDN\":\"ou=groups,dc=yunohost,dc=org\",\"GroupFilter\":\"\",\"GroupAttribute\":\"member\"}],\"AdminGroupSearchSettings\":[{\"GroupBaseDN\":\"\",\"GroupFilter\":\"\",\"GroupAttribute\":\"\"}],\"AutoCreateUsers\":true,\"URL\":\"host.docker.internal:389\",\"Password\":\"\"}}")
+
 
 # Requete pour changer les réglages de Portainer (collect stats). Pourrait permettre de régler la conf du LDAP... 
 # Reste le Pb du Bearer...
