@@ -160,9 +160,15 @@ ynh_add_config --template="docker-compose.yaml" --destination="$data_dir/docker-
 # NOTA: I try to generate only LDAP conf with "sudo yunohost tools regen-conf sladp" but, in this
 # case, the hook is not called.
 ynh_script_progression --message="Change LDAP configuration..." --weight=2
+mkdir -p "/etc/yunohost/hooks.d/conf_regen/"
 ynh_add_config --template="../hooks/conf_regen" --destination="/etc/yunohost/hooks.d/conf_regen/99-slapd-portainer"
 sudo yunohost tools regen-conf
 rm -f "/etc/yunohost/hooks.d/conf_regen/99-slapd-portainer"
+
+# Firewall should allow Docker containers internal IP to reach MySQL
+# Should be the same as ../hooks/post_iptable_rules
+iptables -A INPUT -p tcp --dport 389 -s 172.17.0.0/12 -j ACCEPT
+iptables -A INPUT -p tcp --dport 389 -s 192.168.0.0/16 -j ACCEPT
 
 #=================================================
 # GENERIC FINALIZATION

@@ -5,7 +5,7 @@ name = "Portainer"
 description.en = "Deploy, configure, troubleshoot and secure containers in minutes on Docker"
 description.fr = "Déployez, configurez, dépannez et sécurisez les conteneurs en quelques minutes sur Docker"
 
-version = "2.18.1~ynh3"
+version = "2.18.1~ynh4"
 
 maintainers = ["pbrisacier@mncc.fr"]
 
