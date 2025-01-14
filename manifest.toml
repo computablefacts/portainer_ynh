@@ -5,7 +5,7 @@ name = "Portainer"
 description.en = "Deploy, configure, troubleshoot and secure containers in minutes on Docker"
 description.fr = "Déployez, configurez, dépannez et sécurisez les conteneurs en quelques minutes sur Docker"
 
-version = "2.19.1~ynh2"
+version = "2.21.5~ynh1"
 
 maintainers = ["pbrisacier@mncc.fr"]
 
@@ -13,8 +13,8 @@ maintainers = ["pbrisacier@mncc.fr"]
 # NB: Only the "license" key is mandatory. Remove entries for which there's no relevant data
 license = "Zlib"
 website = "https://www.portainer.io/"
-admindoc = "https://docs.portainer.io/v/2.19/admin/users"
-userdoc = "https://docs.portainer.io/v/2.19/user/home"
+admindoc = "https://docs.portainer.io/2.21/admin/user/users"
+userdoc = "https://docs.portainer.io/2.21/user/home"
 code = "https://github.com/portainer/portainer"
 
 [integration]
